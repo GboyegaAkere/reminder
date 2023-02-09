@@ -1,9 +1,35 @@
 import React from 'react'
-import People from './People';
+import List from './List'
+import data from './data'
 
 function App(){
+  const [people, setPeople] = React.useState(data)
+
+  const onDelete =(id)=>{
+    setPeople(oldValues =>{
+      return oldValues.filter(people => people.id !==id)
+    })
+  }
+
+  function clearAll(prevState){
+    setPeople(function(){
+      return(
+        prevState,
+        []
+      )
+    })
+  }
+
+
+
   return(
-    <People/>
+    <main>
+      <section className='container'>
+        <h3>{people.length} birthday today</h3>
+        <List people= {people} onDelete={onDelete}/>
+        <button onClick={clearAll}>CLEAR BIRTHDAYS</button>
+      </section>
+    </main>
   )
 }
 
